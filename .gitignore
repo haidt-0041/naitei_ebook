@@ -29,6 +29,7 @@ buildSrc/build
 target/
 /src/main/resources/datasources.properties
 src/main/resources/datasources.properties
+src/main/webapp/assets/img
 /target/
 *.DS_Store
 bin
@@ -46,3 +47,5 @@ spring-*/src/main/java/META-INF/MANIFEST.MF
 *.iml
 *.ipr
 *.iws
+
+src/main/webapp/AdminLTE-2.4.15
