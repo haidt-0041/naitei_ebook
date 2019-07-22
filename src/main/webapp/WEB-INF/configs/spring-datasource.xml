@@ -39,6 +39,8 @@
 				<prop key="hibernate.format_sql">${hibernate.format_sql}</prop>
 			</props>
 		</property>
+		
+		<property name= "packagesToScan" value="app.model"></property>
 
 	</bean>
 

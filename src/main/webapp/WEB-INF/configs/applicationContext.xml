@@ -13,7 +13,7 @@
 	<!-- Load all annotation from java class -->
 	<context:annotation-config />
 	
-	<!-- Load all file from package com.framgia to bean. There, Almost are controllers -->
+	<!-- Load all file from package to bean. There, Almost are controllers -->
 	<context:component-scan base-package="app.*" />
 
 	<!-- Use for json response -->
