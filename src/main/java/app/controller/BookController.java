@@ -34,4 +34,5 @@ public class BookController {
 		model.addObject("books", bookService.loadBooks());
 		return model;
 	}
+}
 
