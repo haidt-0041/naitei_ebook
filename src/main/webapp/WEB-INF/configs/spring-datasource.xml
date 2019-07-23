@@ -42,8 +42,6 @@
 		
 		<property name= "packagesToScan" value="app.model"></property>
 
-		<property name="packagesToScan" value="app.model"></property>
-
 	</bean>
 
 	<bean id="transactionManager"
