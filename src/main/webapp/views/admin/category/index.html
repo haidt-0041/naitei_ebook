@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="admin/layout">
+
+
+<div layout:fragment="body">
+    <table class="table">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Name</th>
+                <th scope="col">Handle</th>
+            </tr>
+        </thead>
+        <tbody th:each="category : ${categories}">
+            <tr>
+                <th scope="row" th:text="${category.id}"></th>
+                <td th:text="${category.name}"></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+</html>
