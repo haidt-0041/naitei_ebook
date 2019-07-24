@@ -37,4 +37,17 @@ public class CategoryController {
 		return model;
 	}
 	
+	@RequestMapping(value = "admin/categories/save", method = RequestMethod.POST)
+	public String save(@ModelAttribute("categoryForm") Category newCategory, BindingResult errors,  final RedirectAttributes redirectAttributes) {
+		logger.info("add categories");
+		Category category = categoryService.saveOrUpdate(newCategory);
+		if (category != null) {
+			redirectAttributes.addFlashAttribute("css", "success");
+			redirectAttributes.addFlashAttribute("msg", messageSource.getMessage("category.create.success", null, Locale.US));
+		} else {
+			redirectAttributes.addFlashAttribute("css", "danger");
+			redirectAttributes.addFlashAttribute("msg", messageSource.getMessage("category.create.fail", null, Locale.US));
+		}
+		return "redirect:/admin/categories";
+	}
 }
