@@ -32,11 +32,11 @@ public class User {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 
-	@NotEmpty
+	@NotEmpty(message="{NotEmpty.user.name}")
 	@Column(name = "name", nullable = false)
 	private String name;
 
-	@Email
+	@Email(message="{Email.user.email}")
 	@Column(name = "email")
 	private String email;
 
