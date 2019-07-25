@@ -17,8 +17,6 @@
 	<!-- Load all file from package to bean. There, Almost are controllers -->
 	<context:component-scan base-package="app.*" />
 
-	<!-- Use for json response -->
-
 	<!-- Load message.properties. As I18n -->
 	<mvc:annotation-driven validator="validator" />
 

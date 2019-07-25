@@ -1,15 +1,15 @@
 package app.model;
 
 import java.time.LocalDateTime;
-import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,27 +17,31 @@ import lombok.Setter;
 
 
 @Entity
-@Table(name = "categories")
+@Table(name = "reviews")
 @Setter
 @Getter
 @NoArgsConstructor
 
-public class Category {
+public class Review {
 	@Id
 	@Column (name= "id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+    private int id;
+    
+    @OneToOne(mappedBy = "review")
+    private Book book;
 	
-	@OneToMany(mappedBy="category")
-    private Set<Book> book;
-
 	@Column (name= "created_at")
 	private LocalDateTime createDateTime;
 	
 	@Column (name= "updated_at")
 	private LocalDateTime updateDateTime;
 	
-	@Column (name= "name")
-	private String name;
+	@Column (name= "content")
+	@NotEmpty(message="{review.content.empty}")
+	private String content;
+	
+	@Column (name= "rate_number")
+	private int rate_number;
 
 }

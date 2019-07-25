@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="front/layout">
+
+<div layout:fragment="body">
+    <!-- SECTION -->
+    <div class="section">
+        <!-- container -->
+        <div class="container">
+            <!-- row -->
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="section-row">
+                        <div class="section-title">
+                            <h2 class="title">Book Info</h2>
+                        </div>
+                        <form th:action="@{/books/save}" method="post">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group" th:classappend="${#fields.hasErrors('book.title')} ? 'has-error has-feedback' : ''">
+                                        <input class="form-control is-invalid" type="text" th:field="*{book.title}" placeholder="Title">
+                                        <span th:if="${#fields.hasErrors('book.title')}" class="help-block" th:errors="*{book.title}"></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group" th:classappend="${#fields.hasErrors('book.cover')} ? 'has-error has-feedback' : ''">
+                                        <input class="form-control" type="url" th:field="*{book.cover}" placeholder="Cover">
+                                        <span th:if="${#fields.hasErrors('book.cover')}" class="help-block" th:errors="*{book.cover}"></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group" th:classappend="${#fields.hasErrors('book.link')} ? 'has-error has-feedback' : ''">
+                                        <input class="form-control" type="url" th:field="*{book.link}" placeholder="Link">
+                                        <span th:if="${#fields.hasErrors('book.link')}" class="help-block" th:errors="*{book.link}"></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <input class="form-control" type="text" th:field="*{book.author}" placeholder="Author">
+                                    </div>
+                                </div>
+                            </div>
+                    </div>
+
+                    <div class="section-row">
+                        <div class="section-title">
+                            <h2 class="title">Review</h2>
+                        </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group" th:classappend="${#fields.hasErrors('review.content')} ? 'has-error has-feedback' : ''">
+                                        <textarea class="form-control" th:field="*{review.content}"></textarea>
+                                        <span th:if="${#fields.hasErrors('review.content')}" class="help-block" th:errors="*{review.content}"></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <button class="primary-button">Submit</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <!-- /row -->
+        </div>
+        <!-- /container -->
+    </div>
+    <!-- /SECTION -->
+
+</div>
+</html>
