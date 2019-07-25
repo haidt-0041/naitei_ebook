@@ -9,7 +9,7 @@
     http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
 	<mvc:resources mapping="/assets/**" location="/assets/" />
-	
+	<mvc:default-servlet-handler/>
 	<!-- Load all annotation from java class -->
 	<context:annotation-config />
 	

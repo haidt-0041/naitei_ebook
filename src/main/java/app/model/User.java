@@ -1,5 +1,6 @@
 package app.model;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import javax.persistence.Column;
@@ -8,6 +9,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -24,12 +29,14 @@ public class User {
 
 	@Id
 	@Column(name = "id")
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 
-	@Column(name = "name")
+	@NotEmpty
+	@Column(name = "name", nullable = false)
 	private String name;
 
+	@Email
 	@Column(name = "email")
 	private String email;
 
@@ -54,8 +61,9 @@ public class User {
 	@Column(name = "role")
 	private int role;
 
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Column(name = "dob")
-	private LocalDateTime dob;
+	private LocalDate dob;
 
 	public String getSexAttr() {
 		return (this.sex == MALE) ? "MALE" : "FEMALE";
