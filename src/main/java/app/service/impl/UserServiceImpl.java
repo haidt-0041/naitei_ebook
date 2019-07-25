@@ -12,7 +12,6 @@ import app.service.UserService;
 public class UserServiceImpl extends BaseServiceImpl implements UserService {
 	private static final Logger logger = Logger.getLogger(UserServiceImpl.class);
 
-	@Override
 	public User saveOrUpdate(User entity) {
 		try {
 			return getUserDAO().saveOrUpdate(entity);
@@ -49,7 +48,6 @@ public class UserServiceImpl extends BaseServiceImpl implements UserService {
 		}
 	}
 
-	@Override
 	public boolean delete(User entity) {
 		try {
 			getUserDAO().delete(entity);
@@ -59,4 +57,11 @@ public class UserServiceImpl extends BaseServiceImpl implements UserService {
 		}
 	}
 
+	@Override
+	public boolean deleteUser(Integer id) {
+		// TODO Auto-generated method stub
+		User user= findById(id);
+		return delete(user);
+		
+	}
 }

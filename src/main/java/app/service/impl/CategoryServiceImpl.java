@@ -35,9 +35,14 @@ public class CategoryServiceImpl extends BaseServiceImpl implements CategoryServ
 	}
 
 	@Override
-	public boolean delete(Category entity) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean destroy(Integer id) {
+		try {
+			Category category = getCategoryDAO().findById(id);
+			return delete(category);
+		} catch (Exception e) {
+			logger.error(e);
+			return false;
+		}
 	}
 
 	@Override
@@ -48,5 +53,16 @@ public class CategoryServiceImpl extends BaseServiceImpl implements CategoryServ
 			return null;
 		}
 
+	}
+
+	@Override
+	public boolean delete(Category entity) {
+		try {
+			getCategoryDAO().delete(entity);
+			return true;
+		} catch (Exception e) {
+			logger.error(e);
+			throw e;
+		}
 	}
 }
