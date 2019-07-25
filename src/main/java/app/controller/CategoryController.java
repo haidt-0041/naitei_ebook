@@ -50,4 +50,17 @@ public class CategoryController {
 		}
 		return "redirect:/admin/categories";
 	}
+
+	@RequestMapping(value = "admin/categories/{id}/delete")
+	public String delete(@PathVariable("id") Integer id, final RedirectAttributes redirectAttributes){
+		logger.info("delete category");
+		if (categoryService.delete(categoryService.findById(id))) {
+			redirectAttributes.addFlashAttribute("css", "success");
+			redirectAttributes.addFlashAttribute("msg", messageSource.getMessage("category.delete.success", null, Locale.US));
+		} else {
+			redirectAttributes.addFlashAttribute("css", "danger");
+			redirectAttributes.addFlashAttribute("msg", messageSource.getMessage("category.delete.fail", null, Locale.US));
+		}
+		return "redirect:/admin/categories";
+	}
 }

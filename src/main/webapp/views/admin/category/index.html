@@ -21,16 +21,13 @@
                 <tr>
                     <th scope="row" th:text="${category.id}"></th>
                     <td th:text="${category.name}"></td>
+                    <td><a th:href="@{'categories/'+${category.id}+'/delete'}" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this item?');">Delete</a></td>
                 </tr>
             </tbody>
             <tfoot>
                 <tr>
-                </tr>
-                <tr>
-                    <td><label for="name">Name </label></td>
+                    <th><label for="name">Name </label></th>
                     <td><input type="text" name="name" /></td>
-                </tr>
-                <tr>
                     <td><input type="submit" value="Submit" /></td>
                 </tr>
             </tfoot>
