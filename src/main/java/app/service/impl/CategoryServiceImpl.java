@@ -2,7 +2,6 @@ package app.service.impl;
 
 import java.io.Serializable;
 
-
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -23,7 +22,6 @@ public class CategoryServiceImpl extends BaseServiceImpl implements CategoryServ
 		}
 	}
 
-
 	@Override
 	public Category findById(Serializable key) {
 		try {
@@ -31,17 +29,6 @@ public class CategoryServiceImpl extends BaseServiceImpl implements CategoryServ
 		} catch (Exception e) {
 			logger.error(e);
 			return null;
-		}
-	}
-
-	@Override
-	public boolean destroy(Integer id) {
-		try {
-			Category category = getCategoryDAO().findById(id);
-			return delete(category);
-		} catch (Exception e) {
-			logger.error(e);
-			return false;
 		}
 	}
 
