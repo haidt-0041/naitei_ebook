@@ -26,8 +26,6 @@ public class UserController extends BaseController {
 	@Autowired
 	private UserService userService;
 
-	
-
 	@RequestMapping(value = "users/{id}", method = RequestMethod.GET)
 	public ModelAndView show(@PathVariable("id") int id) {
 		logger.info("detail user");
@@ -67,18 +65,24 @@ public class UserController extends BaseController {
 	@RequestMapping(value = "/admin/users", method = RequestMethod.POST)
 	public String saveOrUpdate(@Valid @ModelAttribute("userForm") User user, BindingResult bindingResult, Model model,
 			final RedirectAttributes redirectAttributes) {
+
 		logger.info("add user");
-//		userService.saveOrUpdate(user);
 		model.addAttribute("userForm", user);
 		model.addAttribute("status", "add");
 		if (bindingResult.hasErrors()) {
 			return "/admin/user/user-form";
 		}
-		userService.saveOrUpdate(user);
-		String message = messageSource.getMessage("saveOrUpdateSuccess", null, Locale.US);
-		redirectAttributes.addFlashAttribute("success", message);
-		return "redirect:/admin/users";
+		try {
+			userService.saveOrUpdate(user);
+			redirectAttributes.addFlashAttribute("success",
+					messageSource.getMessage("saveOrUpdateSuccess", null, Locale.US));
+		} catch (Exception e) {
 
+			model.addAttribute("error",
+					messageSource.getMessage("Email.user.email.exist", null, Locale.US));
+			return "/admin/user/user-form";
+		}
+		return "redirect:/admin/users";
 	}
 
 	@RequestMapping(value = "admin/users/{id}/edit", method = RequestMethod.GET)

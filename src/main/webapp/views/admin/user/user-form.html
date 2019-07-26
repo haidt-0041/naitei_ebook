@@ -16,7 +16,8 @@
 		<div class="container" style="margin: 0 auto;">
 			<h1 th:if="${status == 'add'}">Add User</h1>
 			<h1 th:if="${status == 'edit'}">Edit User</h1>			
-
+<h1 th:text="${success}"></h1>
+<h1 th:text="${error}"></h1>
 			<br />
 
 			<div class="col-md-6" style="margin: 0 auto;">
