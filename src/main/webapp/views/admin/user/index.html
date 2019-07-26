@@ -5,8 +5,8 @@
 
 <link rel="stylesheet" th:href="@{/assets/admin/css/style.css}">
 <div layout:fragment="body">
-<h1 th:text="${success}"></h1>
-<h1 th:text="${error}"></h1>
+	<h1 th:text="${success}"></h1>
+	<h1 th:text="${error}"></h1>
 	<div class="section">
 		<!-- container -->
 		<div class="container">
@@ -34,57 +34,58 @@
 								</a>
 
 							</div>
-							<div th:if="${users.empty}">
-							<p>No users</p>
-						</div>
-						<div class="col-md-12 user-table">
-								<div class="table-responsive">
-									<h5>List of users</h5>
-									<table class="table table-bordered table-hover">
-										<thead>
-											<tr>
-												<th>#</th>
-												<th>Name</th>
-												<th>Email</th>
-												<th>Date Of Birth</th>
-												<th>Sex</th>
-												<th>Edit</th>
-												<th>Delete</th>
-											</tr>
-										</thead>
-										<tbody>
-											<tr th:each="user,iterStat : ${users}">
-												<th scope="row" th:text="${iterStat.count}"></th>
-												<td th:text="${user.name}"></td>
-												<td th:text="${user.email}"></td>
-												<td th:text="${user.dob}"></td>
-												<td th:text="${user.getSexAttr()}"></td>
-
-												<td><a href="#" class="btn btn-default"
-													th:href="${'users/'+user.id +'/edit'}" title="Edit Data"><span
-														class="glyphicon glyphicon-edit"></span></a></td>
-												<td><a href="#" class="btn btn-default"
-													th:href="${'users/'+user.id +'/delete'}"
-													title="Delete data"><span
-														class="glyphicon glyphicon-trash"></span></a></td>
-											</tr>
-										</tbody>
-									</table>
+							 <th:block th:if="${#lists.isEmpty(users)}">
+                					<h5> This user does not exist</h5>
+            				</th:block>
+            				 <th:block th:unless="${#lists.isEmpty(users)}">
+								<div class="col-md-12 user-table">
+									<div class="table-responsive" style="margin-right:121px">
+										<h5>List of users</h5>
+										<table class="table table-bordered table-hover">
+											<thead>
+												<tr>
+													<th>#</th>
+													<th>Name</th>
+													<th>Email</th>
+													<th>Date Of Birth</th>
+													<th>Sex</th>
+													<th>Profile</th>
+													<th>Edit</th>
+													<th>Delete</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr th:each="user,iterStat : ${users}">
+													<th scope="row" th:text="${iterStat.count}"></th>
+													<td th:text="${user.name}"></td>
+													<td th:text="${user.email}"></td>
+													<td th:text="${user.dob}"></td>
+													<td th:text="${user.getSexAttr()}"></td>
+													<td><a href="#" class="btn btn-default"
+														th:href="@{'/users/' + ${user.id}}" title="User Profile"><span
+															class="glyphicon glyphicon-user"></span></a></td>
+	
+													<td><a href="#" class="btn btn-default"
+														th:href="${'users/'+user.id +'/edit'}"
+														title="Edit User"><span
+															class="glyphicon glyphicon-edit"></span></a></td>
+													<td><a href="#" class="btn btn-default"
+														th:href="${'users/'+user.id +'/delete'}"
+														title="Delete User"><span
+															class="glyphicon glyphicon-trash"
+															onclick="return confirm('Are you sure you want to delete??')"></span></a></td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
 								</div>
-							</div>
-						</div>
-						
-						<div>
-							<!-- post -->
-							
-							<!-- /post -->
+							</th:block>
 						</div>
 					</div>
-					<!-- /row -->
+					<!-- /row x`-->
 				</div>
 			</div>
 		</div>
 	</div>
-</div>
 </div>
 </html>

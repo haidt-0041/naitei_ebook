@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -52,8 +53,10 @@ public class User {
 	@Column(name = "avatar")
 	private String avatar;
 
-	@Column(name = "passworld")
-	private String passworld;
+	@Column(name = "password")
+	@NotEmpty(message = "{pass.not.empty}")
+	@Size(message = "{pass.size}", min = 5, max = 30)
+	private String password;
 
 	@Column(name = "status")
 	private int status;
