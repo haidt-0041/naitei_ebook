@@ -13,6 +13,9 @@
                         <p th:text="${error}"></p>
                     </div>
                     <div th:unless="${error}">
+                    <div th:class="'alert alert-'+${css}" role="alert">
+				       <p th:text="${msg}"></p>
+				   	</div>
                         <div class="section-row">
                             <div class="row">
                                 <div class="col-md-4">
@@ -23,18 +26,15 @@
                                         <h1 th:text="${book.title}"></h1>
                                         <p th:text="${book.author}"></p>
                                     </div>
+                                    <div class="book-review">
+                                    	<p th:text="${review.content}"></p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                         <div class="section-row">
                             <iframe class="iframe-pdf" th:src="${book.link}"></iframe>
                         </div>
-    
-                        <!-- post content -->
-                        <div class="section-row">
-                            <p>review</p>
-                        </div>
-                        <!-- /post content -->
                     </div>
                     
                 </div>
