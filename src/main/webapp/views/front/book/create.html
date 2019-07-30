@@ -17,6 +17,7 @@
                         </div>
                         <form th:action="@{/books/save}" method="post">
                             <div class="row">
+                            	<input type="hidden" th:field="*{book.id}" />
                                 <div class="col-md-12">
                                     <div class="form-group" th:classappend="${#fields.hasErrors('book.title')} ? 'has-error has-feedback' : ''">
                                         <input class="form-control is-invalid" type="text" th:field="*{book.title}" placeholder="Title">
@@ -39,6 +40,11 @@
                                     <div class="form-group">
                                         <input class="form-control" type="text" th:field="*{book.author}" placeholder="Author">
                                     </div>
+                                </div>
+                                <div class="col-md-12">
+                                	<select class="form-control" th:field="*{book.category.id}">
+								      <option  th:each="cat : ${categories}" th:text="${cat.name}" th:value="${cat.id}"></option>
+								    </select>
                                 </div>
                             </div>
                     </div>

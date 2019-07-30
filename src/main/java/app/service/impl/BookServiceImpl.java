@@ -17,7 +17,9 @@ public class BookServiceImpl extends BaseServiceImpl implements BookService {
 	@Override
 	public Book save(Book book, Review review) {
 		try {
-			System.out.println(review.getContent());
+			if (book.getReview() != null) {
+				review.setId(book.getReview().getId());
+			}
 			Review newReview = getReviewDAO().saveOrUpdate(review);
 			book.setReview(newReview);
 			return getBookDAO().saveOrUpdate(book);
@@ -26,19 +28,6 @@ public class BookServiceImpl extends BaseServiceImpl implements BookService {
 			throw e;
 		}
 	}
-	
-	@Override
-	public Book saveOrUpdate(Book entity) {
-		try {
-			Review review = getReviewDAO().saveOrUpdate(entity.getReview());
-			entity.setReview(review);
-			return getBookDAO().saveOrUpdate(entity);
-		} catch (Exception e) {
-			logger.error(e);
-			throw e;
-		}
-	}
-
 
 	@Override
 	public Book findById(Serializable key) {
