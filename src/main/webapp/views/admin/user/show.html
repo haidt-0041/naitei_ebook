@@ -8,9 +8,8 @@
 			<div class="row">
 				<div class="col-md-4">
 					<div class="profile-img">
-						<img
-							src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS52y5aInsxSm31CvHOFHWujqUx_wWTS9iM6s7BAm21oEN_RiGoog"
-							alt="" />
+						<img class="img-cover" th:src="${user.avatar}"
+							th:alt="${user.avatar}">
 						<div class="file btn btn-lg btn-primary">
 							Change Photo <input type="file" name="file" />
 						</div>
@@ -19,8 +18,8 @@
 				<div class="col-md-6">
 					<div class="profile-head">
 						<th:block th:if="${error != null}">
-								<h3 th:text="${error}"></h3>
-							</th:block>
+							<h3 th:text="${error}"></h3>
+						</th:block>
 						<th:block th:unless="${error != null}">
 							<h5 th:text="${user.name}"></h5>
 						</th:block>
@@ -38,10 +37,6 @@
 						</ul>
 					</div>
 				</div>
-				<div class="col-md-2">
-					<input type="submit" class="profile-edit-btn" name="btnAddMore"
-						value="Edit Profile" />
-				</div>
 			</div>
 			<div class="row">
 				<div class="col-md-4">
@@ -57,8 +52,7 @@
 				</div>
 				<div class="col-md-8">
 					<div class="tab-content profile-tab" id="myTabContent">
-						<div id="home" role="tabpanel"
-							aria-labelledby="home-tab">
+						<div id="home" role="tabpanel" aria-labelledby="home-tab">
 							<th:block th:if="${error != null}">
 								<h3 th:text="${error}"></h3>
 							</th:block>
