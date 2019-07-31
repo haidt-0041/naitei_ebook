@@ -1,6 +1,5 @@
 package app.dao.impl;
 
-import java.io.Serializable;
 import java.util.List;
 
 

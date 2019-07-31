@@ -21,7 +21,7 @@ import javax.validation.Valid;
 import app.model.Book;
 import app.model.Review;
 import app.service.BookService;
-import app.service.ReviewService;
+import app.service.CategoryService;
 
 @Controller
 public class BookController {
@@ -29,9 +29,10 @@ public class BookController {
 
 	@Autowired
 	private BookService bookService;
-	@Autowired
-	private ReviewService reviewService;
 
+	@Autowired
+	private CategoryService categoryService;
+	
 	@Autowired
 	private MessageSource messageSource;
 
@@ -59,6 +60,7 @@ public class BookController {
 	@RequestMapping(value = "/books/new")
 	public ModelAndView create() {
 		ModelAndView model = new ModelAndView("front/book/create");
+		model.addObject("categories", categoryService.list());
 		model.addObject("book", new Book());
 		model.addObject("review", new Review());
 		return model;
@@ -66,12 +68,18 @@ public class BookController {
 
 	@RequestMapping(value = "/books/{id}/edit")
 	public ModelAndView edit(@PathVariable("id") int id) {
-		ModelAndView model = new ModelAndView("front/book/edit");
-		Book book = bookService.findById(id);
-		Review review = book.getReview();
-		model.addObject("book", book);
-		model.addObject("review", review);
-		return model;
+		try {
+			ModelAndView model = new ModelAndView("front/book/create");
+			Book book = bookService.findById(id);
+			Review review = book.getReview();
+			model.addObject("book", book);
+			model.addObject("review", review);
+			return model;
+		} catch (Exception e) {
+			ModelAndView model = new ModelAndView("front/404");
+			model.addObject("error", messageSource.getMessage("book.notFound", null, Locale.US));
+			return model;
+		}
 	}
 
 	@RequestMapping(value = "/books/save", method = RequestMethod.POST)
@@ -81,9 +89,8 @@ public class BookController {
 		if (bindingBook.hasErrors() || bindingReview.hasErrors()) {
 			return "front/book/create";
 		}
-
-		Book newBook = bookService.save(book, review);
-
+//		book.setCategory(categoryService.findById());
+		Book newBook = bookService.save(book, review);	
 		if(newBook == null) {
 			redirectAttributes.addFlashAttribute("css", "danger");
 			redirectAttributes.addFlashAttribute("msg", messageSource.getMessage("book.create.fail", null, Locale.US));
