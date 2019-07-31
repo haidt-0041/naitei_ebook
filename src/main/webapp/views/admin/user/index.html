@@ -26,20 +26,12 @@
 									</button>
 								</form>
 							</div>
-
-							<div class="col-4 no-padding">
-								<a href="#" th:href="@{/admin/users/add}"
-									class="btn btn-success float-right"> <i
-									class="fa fa-plus-square"></i> New user
-								</a>
-
-							</div>
-							 <th:block th:if="${#lists.isEmpty(users)}">
-                					<h5> This user does not exist</h5>
-            				</th:block>
-            				 <th:block th:unless="${#lists.isEmpty(users)}">
+							<th:block th:if="${#lists.isEmpty(users)}">
+								<h5>This user does not exist</h5>
+							</th:block>
+							<th:block th:unless="${#lists.isEmpty(users)}">
 								<div class="col-md-12 user-table">
-									<div class="table-responsive" style="margin-right:121px">
+									<div class="table-responsive" style="margin-right: 121px">
 										<h5>List of users</h5>
 										<table class="table table-bordered table-hover">
 											<thead>
@@ -50,7 +42,6 @@
 													<th>Date Of Birth</th>
 													<th>Sex</th>
 													<th>Profile</th>
-													<th>Edit</th>
 													<th>Delete</th>
 												</tr>
 											</thead>
@@ -61,19 +52,13 @@
 													<td th:text="${user.email}"></td>
 													<td th:text="${user.dob}"></td>
 													<td th:text="${user.getSexAttr()}"></td>
-													<td><a href="#" class="btn btn-default"
-														th:href="@{'/users/' + ${user.id}}" title="User Profile"><span
-															class="glyphicon glyphicon-user"></span></a></td>
-	
-													<td><a href="#" class="btn btn-default"
-														th:href="${'users/'+user.id +'/edit'}"
-														title="Edit User"><span
-															class="glyphicon glyphicon-edit"></span></a></td>
-													<td><a href="#" class="btn btn-default"
-														th:href="${'users/'+user.id +'/delete'}"
-														title="Delete User"><span
-															class="glyphicon glyphicon-trash"
-															onclick="return confirm('Are you sure you want to delete??')"></span></a></td>
+
+													<td><a th:href="@{${user.id}}"
+														title="User Profile" class="btn btn-primary">Show</a></td>
+
+													<td><a th:href="@{${user.id}+'/delete'}"
+														class="btn btn-danger"
+														onclick="return confirm('Are you sure you want to delete?');">Delete</a></td>
 												</tr>
 											</tbody>
 										</table>

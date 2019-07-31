@@ -19,15 +19,16 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import app.model.User;
 import app.service.UserService;
 
-@Controller
+@Controller("UserController")
+@RequestMapping(value = "/users/")
 public class UserController extends BaseController {
 	private static final Logger logger = Logger.getLogger(UserController.class);
 
 	@Autowired
 	private UserService userService;
 
-	@RequestMapping(value = "users/{id}", method = RequestMethod.GET)
-	public ModelAndView show(@PathVariable("id") int id) {
+	@RequestMapping(value = "{id}", method = RequestMethod.GET)
+	public ModelAndView showUser(@PathVariable("id") int id) {
 		logger.info("detail user");
 		ModelAndView model = new ModelAndView("/front/user/show");
 		User user = userService.findById(id);
@@ -41,76 +42,57 @@ public class UserController extends BaseController {
 		return model;
 	}
 
-	@RequestMapping(value = "/admin/users")
-	public ModelAndView index() {
-		ModelAndView model = new ModelAndView("/admin/user/index");
-		model.addObject("users", userService.loadUsers());
-		return model;
-	}
-
-	@RequestMapping(value = "/admin/users/add", method = RequestMethod.GET)
-	public String newUser(Model model) {
-		User user = new User();
-
-		// set default value
-		user.setSex(0);
-
-		model.addAttribute("userForm", user);
-		model.addAttribute("status", "add");
-
-		return "/admin/user/user-form";
-
-	}
-
-	@RequestMapping(value = "/admin/users", method = RequestMethod.POST)
+	@RequestMapping(method = RequestMethod.POST)
 	public String saveOrUpdate(@Valid @ModelAttribute("userForm") User user, BindingResult bindingResult, Model model,
 			final RedirectAttributes redirectAttributes) {
 
-		logger.info("add user");
-		model.addAttribute("userForm", user);
-		model.addAttribute("status", "add");
+		logger.info("edit user");
+
+		// model.addAttribute("status", "edit");
 		if (bindingResult.hasErrors()) {
-			return "/admin/user/user-form";
+			logger.info("edit user binding error");
+			logger.info(bindingResult);
+			return "/front/user/user-form";
+		}
+		User user1 = userService.findById(user.getId());
+		if (!user1.getPassword().equals(user.getPassword())) {
+			model.addAttribute("error", messageSource.getMessage("Password.user.fail", null, Locale.US));
+			return "/front/user/user-form";
 		}
 		try {
 			userService.saveOrUpdate(user);
 			redirectAttributes.addFlashAttribute("success",
 					messageSource.getMessage("saveOrUpdateSuccess", null, Locale.US));
+			logger.info("edit user success");
+			return "redirect:/users/" + user.getId();
+
 		} catch (Exception e) {
 
-			model.addAttribute("error",
-					messageSource.getMessage("Email.user.email.exist", null, Locale.US));
-			return "/admin/user/user-form";
+			model.addAttribute("error", messageSource.getMessage("Email.user.email.exist", null, Locale.US));
+			logger.info("edit user error");
+			return "/front/user/user-form";
 		}
-		return "redirect:/admin/users";
 	}
 
-	@RequestMapping(value = "admin/users/{id}/edit", method = RequestMethod.GET)
+/*	@RequestMapping(value = "{id}/edit", method = RequestMethod.GET)
 	public String editUser(@PathVariable("id") int id, Model model) {
 
 		User user = userService.findById(id);
 		model.addAttribute("userForm", user);
 		model.addAttribute("status", "edit");
 
-		return "/admin/user/user-form";
+		return "/front/user/user-form";
 
-	}
+	}*/
 
-	@RequestMapping(value = "/admin/users/{id}/delete", method = RequestMethod.GET)
-	public String deleteUser(@PathVariable("id") Integer id, final RedirectAttributes redirectAttributes) {
-		logger.info("delete user");
-		if (userService.deleteUser(id)) {
-			redirectAttributes.addFlashAttribute("css", "success");
-			String message = messageSource.getMessage("user.deleted", null, Locale.US);
-			redirectAttributes.addFlashAttribute("success", message);
+	@RequestMapping(value = "{id}/edit", method = RequestMethod.GET)
+	public String editProfile(@PathVariable("id") int id, Model model) {
 
-		} else {
-			redirectAttributes.addFlashAttribute("css", "error");
-			String message = messageSource.getMessage("user.deletefail", null, Locale.US);
-			redirectAttributes.addFlashAttribute("error", message);
-		}
+		User user = userService.findById(id);
+		model.addAttribute("userForm", user);
+		model.addAttribute("status", "edit");
 
-		return "redirect:/admin/users";
+		return "/front/user/user-form";
 
 	}
 
