@@ -19,14 +19,15 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import app.model.User;
 import app.service.UserService;
 
-@Controller
+@Controller("UserController")
+@RequestMapping(value = "/users/")
 public class UserController extends BaseController {
 	private static final Logger logger = Logger.getLogger(UserController.class);
 
 	@Autowired
 	private UserService userService;
 
-	@RequestMapping(value = "/users/{id}", method = RequestMethod.GET)
+	@RequestMapping(value = "{id}", method = RequestMethod.GET)
 	public ModelAndView showUser(@PathVariable("id") int id) {
 		logger.info("detail user");
 		ModelAndView model = new ModelAndView("/front/user/show");
@@ -41,7 +42,7 @@ public class UserController extends BaseController {
 		return model;
 	}
 
-	@RequestMapping(value = "/users", method = RequestMethod.POST)
+	@RequestMapping(method = RequestMethod.POST)
 	public String saveOrUpdate(@Valid @ModelAttribute("userForm") User user, BindingResult bindingResult, Model model,
 			final RedirectAttributes redirectAttributes) {
 
@@ -73,7 +74,7 @@ public class UserController extends BaseController {
 		}
 	}
 
-	@RequestMapping(value = "/users/{id}/edit", method = RequestMethod.GET)
+/*	@RequestMapping(value = "{id}/edit", method = RequestMethod.GET)
 	public String editUser(@PathVariable("id") int id, Model model) {
 
 		User user = userService.findById(id);
@@ -82,9 +83,9 @@ public class UserController extends BaseController {
 
 		return "/front/user/user-form";
 
-	}
+	}*/
 
-	@RequestMapping(value = "/users/{id}/edit", method = RequestMethod.GET)
+	@RequestMapping(value = "{id}/edit", method = RequestMethod.GET)
 	public String editProfile(@PathVariable("id") int id, Model model) {
 
 		User user = userService.findById(id);

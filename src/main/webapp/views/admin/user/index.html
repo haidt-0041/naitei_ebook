@@ -53,10 +53,10 @@
 													<td th:text="${user.dob}"></td>
 													<td th:text="${user.getSexAttr()}"></td>
 
-													<td><a th:href="@{'users/' + ${user.id}}"
+													<td><a th:href="@{${user.id}}"
 														title="User Profile" class="btn btn-primary">Show</a></td>
 
-													<td><a th:href="@{'users/'+${user.id}+'/delete'}"
+													<td><a th:href="@{${user.id}+'/delete'}"
 														class="btn btn-danger"
 														onclick="return confirm('Are you sure you want to delete?');">Delete</a></td>
 												</tr>
