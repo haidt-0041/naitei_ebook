@@ -15,18 +15,18 @@ import app.controller.BaseController;
 import app.model.User;
 import app.service.UserService;
 
-@Controller
-@RequestMapping(value = "/admin/users")
+@Controller("AdminUserController")
+@RequestMapping(value = "/admin/users/")
 public class UserController extends BaseController {
 	private static final Logger logger = Logger.getLogger(UserController.class);
 
 	@Autowired
 	private UserService userService;
 
-	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
+	@RequestMapping(value = "{id}", method = RequestMethod.GET)
 	public ModelAndView show(@PathVariable("id") int id) {
 		logger.info("detail user");
-		ModelAndView model = new ModelAndView("/admin/user/show");
+		ModelAndView model = new ModelAndView("admin/user/show");
 		User user = userService.findById(id);
 		if (user == null) {
 			model.addObject("error", messageSource.getMessage("user.notFound", null, Locale.US));
@@ -38,14 +38,14 @@ public class UserController extends BaseController {
 		return model;
 	}
 
-	@RequestMapping(value = "/")
+	@RequestMapping
 	public ModelAndView index() {
 		ModelAndView model = new ModelAndView("/admin/user/index");
 		model.addObject("users", userService.loadUsers());
 		return model;
 	}
 
-	@RequestMapping(value = "/{id}/delete", method = RequestMethod.GET)
+	@RequestMapping(value = "{id}/delete", method = RequestMethod.GET)
 	public String deleteUser(@PathVariable("id") Integer id, final RedirectAttributes redirectAttributes) {
 		logger.info("delete user");
 		if (userService.deleteUser(id)) {
@@ -59,7 +59,7 @@ public class UserController extends BaseController {
 			redirectAttributes.addFlashAttribute("error", message);
 		}
 
-		return "redirect:/admin/users";
+		return "redirect:/admin/users/";
 
 	}
 

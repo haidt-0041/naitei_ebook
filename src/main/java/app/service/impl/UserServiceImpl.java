@@ -60,8 +60,31 @@ public class UserServiceImpl extends BaseServiceImpl implements UserService {
 	@Override
 	public boolean deleteUser(Integer id) {
 		// TODO Auto-generated method stub
-		User user= findById(id);
+		User user = findById(id);
 		return delete(user);
-		
+
+	}
+
+	@Override
+	public User findByEmailAndPassword(String email, String password) {
+		try {
+			User user = userDAO.findByEmail(email);
+			if (password.equals(user.getPassword()))
+				return user;
+			return null;
+		} catch (Exception e) {
+			logger.error(e);
+			return null;
+		}
+	}
+
+	@Override
+	public User findByEmail(String email) {
+		try {
+			return getUserDAO().findByEmail(email);
+		} catch (Exception e) {
+			logger.error(e);
+			return null;
+		}
 	}
 }
