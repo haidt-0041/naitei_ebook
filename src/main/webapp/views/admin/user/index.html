@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
 	layout:decorate="admin/layout">
 
 <link rel="stylesheet" th:href="@{/assets/admin/css/style.css}">
@@ -53,8 +54,8 @@
 													<td th:text="${user.dob}"></td>
 													<td th:text="${user.getSexAttr()}"></td>
 
-													<td><a th:href="@{${user.id}}"
-														title="User Profile" class="btn btn-primary">Show</a></td>
+													<td><a th:href="@{${user.id}}" title="User Profile"
+														class="btn btn-primary">Show</a></td>
 
 													<td><a th:href="@{${user.id}+'/delete'}"
 														class="btn btn-danger"
