@@ -8,5 +8,7 @@ public interface CommentService extends BaseService<Integer, Comment> {
 
 	List<Comment> listComments();
 
+	List<Comment> listComments(Integer book_id);
+	
 	Comment saveComment(int book_id, Comment comment);
 }

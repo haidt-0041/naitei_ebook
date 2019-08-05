@@ -8,6 +8,7 @@
 <div layout:fragment="body">
 	<h1 th:text="${success}"></h1>
 	<h1 th:text="${error}"></h1>
+	<h1 th:text="${session.userLoged.name}"></h1>
 	<div class="section">
 		<!-- container -->
 		<div class="container">
@@ -17,6 +18,7 @@
 					<!-- row -->
 					<div class="row">
 						<div class="container" id="main-content">
+							<!-- <div th:text="${#authentication.name}"></div> -->
 
 							<div class="col-md-8 no-padding">
 								<form class="form-inline">

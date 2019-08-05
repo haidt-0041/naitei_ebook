@@ -21,4 +21,11 @@ public class CommentDAOImpl extends GenericDAO<Integer, Comment> implements Comm
 		return getSession().createQuery("from Comment").getResultList();
 	}
 
+	@Override
+	public List<Comment> listComments(Integer book_id) {
+		return getSession().createQuery("FROM Comment WHERE (reply_id IS NULL AND book_id = :book_id) ")
+				.setParameter("book_id", book_id)
+				.getResultList();
+	}
+
 }
