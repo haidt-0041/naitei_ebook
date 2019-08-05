@@ -6,6 +6,7 @@ import javax.validation.Valid;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -28,17 +29,23 @@ public class UserController extends BaseController {
 	private UserService userService;
 
 	@RequestMapping(value = "{id}", method = RequestMethod.GET)
-	public ModelAndView showUser(@PathVariable("id") int id) {
+	public ModelAndView showUser(@PathVariable("id") int id, Authentication authentication) {
 		logger.info("detail user");
 		ModelAndView model = new ModelAndView("/front/user/show");
+
+		String email = authentication.getName();
 		User user = userService.findById(id);
 		if (user == null) {
 			model.addObject("error", messageSource.getMessage("user.notFound", null, Locale.US));
 
 		} else {
-			model.addObject("user", user);
-
+			if (!email.equals(user.getEmail())) {
+				model.addObject("error", messageSource.getMessage("user.notCorrect", null, Locale.US));
+			} else {
+				model.addObject("user", user);
+			}
 		}
+
 		return model;
 	}
 
@@ -73,17 +80,6 @@ public class UserController extends BaseController {
 			return "/front/user/user-form";
 		}
 	}
-
-/*	@RequestMapping(value = "{id}/edit", method = RequestMethod.GET)
-	public String editUser(@PathVariable("id") int id, Model model) {
-
-		User user = userService.findById(id);
-		model.addAttribute("userForm", user);
-		model.addAttribute("status", "edit");
-
-		return "/front/user/user-form";
-
-	}*/
 
 	@RequestMapping(value = "{id}/edit", method = RequestMethod.GET)
 	public String editProfile(@PathVariable("id") int id, Model model) {

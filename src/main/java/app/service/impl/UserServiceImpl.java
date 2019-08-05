@@ -77,4 +77,14 @@ public class UserServiceImpl extends BaseServiceImpl implements UserService {
 			return null;
 		}
 	}
+
+	@Override
+	public User findByEmail(String email) {
+		try {
+			return getUserDAO().findByEmail(email);
+		} catch (Exception e) {
+			logger.error(e);
+			return null;
+		}
+	}
 }

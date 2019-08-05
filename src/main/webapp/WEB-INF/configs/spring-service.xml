@@ -40,4 +40,18 @@
 			</bean>
 		</property>
 	</bean>
+
+	<bean id="templateEngine"
+		class="org.thymeleaf.spring5.SpringTemplateEngine">
+		<property name="templateResolver" ref="templateResolver" />
+		<property name="additionalDialects">
+			<set>
+				<bean class="nz.net.ultraq.thymeleaf.LayoutDialect" />
+				<!-- Note the package would change to 'springsecurity[3|4]' if you are 
+					using that version -->
+				<bean
+					class="org.thymeleaf.extras.springsecurity5.dialect.SpringSecurityDialect" />
+			</set>
+		</property>
+	</bean>
 </beans>
