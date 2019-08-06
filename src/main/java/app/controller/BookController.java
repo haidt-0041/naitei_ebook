@@ -58,8 +58,9 @@ public class BookController {
 			Review review = book.getReview();
 			model.addObject("book", book);
 			model.addObject("review", review);
-			model.addObject("comments", commentService.listComments());
+			model.addObject("comments", commentService.listComments(id));
 			model.addObject("comment", new Comment());
+			logger.info(commentService.listComments(id));
 		}
 		return model;
 	}
@@ -96,7 +97,6 @@ public class BookController {
 		if (bindingBook.hasErrors() || bindingReview.hasErrors()) {
 			return "front/book/create";
 		}
-//		book.setCategory(categoryService.findById());
 		Book newBook = bookService.save(book, review);	
 		if(newBook == null) {
 			redirectAttributes.addFlashAttribute("css", "danger");

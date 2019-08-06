@@ -53,4 +53,13 @@ public class CommentServiceImpl extends BaseServiceImpl implements CommentServic
 
 	}
 
+	@Override
+	public List<Comment> listComments(Integer book_id) {
+		try {
+			return getCommentDAO().listComments(book_id);
+		} catch (Exception e) {
+			return null;
+		}
+	}
+
 }
