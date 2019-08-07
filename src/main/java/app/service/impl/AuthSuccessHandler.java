@@ -18,7 +18,7 @@ public class AuthSuccessHandler extends SavedRequestAwareAuthenticationSuccessHa
 		if (role.contains("ADMIN")) {
 			targetUrl = "/admin/users/"; 
 		} else if (role.contains("USER")) {
-			targetUrl = "/";
+			targetUrl = "/books/";
 		}
 		return targetUrl;
 	}
