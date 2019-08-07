@@ -33,12 +33,12 @@ public class UserController extends BaseController {
 		logger.info("detail user");
 		ModelAndView model = new ModelAndView("/front/user/show");
 
-		String email = authentication.getName();
 		User user = userService.findById(id);
 		if (user == null) {
 			model.addObject("error", messageSource.getMessage("user.notFound", null, Locale.US));
 
 		} else {
+			String email = authentication.getName();
 			if (!email.equals(user.getEmail())) {
 				model.addObject("error", messageSource.getMessage("user.notCorrect", null, Locale.US));
 			} else {
@@ -49,7 +49,7 @@ public class UserController extends BaseController {
 		return model;
 	}
 
-	@RequestMapping(method = RequestMethod.POST)
+	@RequestMapping(method = RequestMethod.POST,value="**/")
 	public String saveOrUpdate(@Valid @ModelAttribute("userForm") User user, BindingResult bindingResult, Model model,
 			final RedirectAttributes redirectAttributes) {
 
@@ -71,7 +71,7 @@ public class UserController extends BaseController {
 			redirectAttributes.addFlashAttribute("success",
 					messageSource.getMessage("saveOrUpdateSuccess", null, Locale.US));
 			logger.info("edit user success");
-			return "redirect:/users/" + user.getId();
+			return "redirect:" + user.getId();
 
 		} catch (Exception e) {
 
