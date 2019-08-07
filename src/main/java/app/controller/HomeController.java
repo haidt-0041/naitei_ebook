@@ -14,7 +14,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import app.model.User;
 import app.service.UserService;
 
 @Controller
@@ -22,13 +21,13 @@ public class HomeController extends BaseController {
 	private static final Logger logger = Logger.getLogger(HomeController.class);
 	@Autowired
 	private UserService userService;
+
 	@RequestMapping("/")
 	public String index(Model model, HttpSession session) {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		
+
 		if (!(auth instanceof AnonymousAuthenticationToken) && auth.isAuthenticated()) {
-			User user = userService.findByEmail(auth.getName());
-			session.setAttribute("userLoged", user);
+			session.setAttribute("current_user", userService.findByEmail(auth.getName()));
 			model.addAttribute("currentUser", auth.getName());
 		}
 
