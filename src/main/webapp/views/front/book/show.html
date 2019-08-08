@@ -3,47 +3,49 @@
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="front/layout">
 <div layout:fragment="body">
-    <div class="section">
-        <!-- container -->
-        <div class="container">
-            <!-- row -->
-            <div class="row">
-                <div class="col-md-12">
-                    <div th:if="${error}">
-                        <p th:text="${error}"></p>
-                    </div>
-                    <div th:unless="${error}">
-	                    <div th:class="'alert alert-'+${css}" role="alert">
-					       <p th:text="${msg}"></p>
-					    </div>
-				   	</div>
-				   	<div class="row">
-					   	<div class="col-md-6">
-		                    <div class="section-row">
-		                        <div class="row">
-		                            <div class="col-md-4">
-		                                <img class="img-cover" th:src="${book.cover}" th:alt="${book.title}">
-		                            </div>
-		                            <div class="col-md-8">
-		                            <div class="post-body">
-										<h1 class="post-title title-sm" th:text="${book.title}"></h1>	
-										<div class="post-category">
-											<a href="#" th:if="${book.category}" th:text="${book.category.name}"></a>
-										</div>	
-										<p class="text-left" th:text="${book.author}"></p>				
+	<div class="section">
+		<!-- container -->
+		<div class="container">
+			<!-- row -->
+			<div class="row">
+				<div class="col-md-12">
+					<div th:if="${error}">
+						<p th:text="${error}"></p>
+					</div>
+					<div th:unless="${error}">
+						<div th:class="'alert alert-'+${css}" role="alert">
+							<p th:text="${msg}"></p>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-6">
+							<div class="section-row">
+								<div class="row">
+									<div class="col-md-4">
+										<img class="img-cover" th:src="${book.cover}"
+											th:alt="${book.title}">
 									</div>
-	                                <div class="book-review">
-	                                	<blockquote th:text="${review.content}"></blockquote>
-	                                </div>
-		                            </div>
-		                        </div>
-		                    </div>
-		                     <!-- post comments -->
+									<div class="col-md-8">
+										<div class="post-body">
+											<h1 class="post-title title-sm" th:text="${book.title}"></h1>
+											<div class="post-category">
+												<a href="#" th:if="${book.category}"
+													th:text="${book.category.name}"></a>
+											</div>
+											<p class="text-left" th:text="${book.author}"></p>
+										</div>
+										<div class="book-review">
+											<blockquote th:text="${review.content}"></blockquote>
+										</div>
+									</div>
+								</div>
+							</div>
+							<!-- post comments -->
 							<div class="section-row">
 								<div class="section-title">
 									<h3 class="title">Comments</h3>
 								</div>
-								
+
 								<div class="post-comments" th:each="cm : ${comments}">
 									<!-- comment -->
 									<div class="media">
@@ -57,7 +59,8 @@
 											</div>
 											<p th:text="${cm.content}"></p>
 											<!-- comment -->
-											<div class="media media-author" th:each="reply : ${cm.replies}">
+											<div class="media media-author"
+												th:each="reply : ${cm.replies}">
 												<div class="media-left">
 													<img class="media-object" src="./img/avatar-1.jpg" alt="">
 												</div>
@@ -70,10 +73,12 @@
 												</div>
 											</div>
 											<!-- /comment -->
-											<form class="form-inline" method="post" th:action="@{${book.id}+'/comments'}">
+											<form class="form-inline" method="post"
+												th:action="@{${book.id}+'/comments'}">
 												<div class="form-group">
 													<input class="hidden" th:value="${cm.id}" name="comment.id">
-													<textarea class="input" th:field="*{comment.content}" placeholder="Message"></textarea>
+													<textarea class="input" th:field="*{comment.content}"
+														placeholder="Message"></textarea>
 												</div>
 												<button class="reply">Reply</button>
 											</form>
@@ -82,32 +87,34 @@
 									<!-- /comment -->
 								</div>
 								<div>
-									<form th:action="@{${book.id}+'/comments'}" th:object="${comment}" method="post">
+									<form th:action="@{${book.id}+'/comments'}"
+										th:object="${comment}" method="post">
 										<div class="row">
 											<div class="col-md-12">
 												<div class="form-group">
-													<textarea class="input" th:field="*{content}" placeholder="Message"></textarea>
+													<textarea class="input" th:field="*{content}"
+														placeholder="Message"></textarea>
 												</div>
 											</div>
 											<div class="col-md-12">
 												<button class="primary-button">Submit</button>
 											</div>
-			
+
 										</div>
 									</form>
 								</div>
 							</div>
 							<!-- /post comments -->
-	                    </div>
-	                    <div class="col-md-6">
-		                    <div class="section-row">
-		                        <iframe class="iframe-pdf" th:src="${book.link}"></iframe>
-		                    </div>
-	                    </div>
-                    
-                	</div>
-            </div>
-        </div>
-    </div>
-</div>
-</html> 
+						</div>
+						<div class="col-md-6">
+							<div class="section-row">
+								<iframe class="iframe-pdf" th:src="${book.link}"></iframe>
+							</div>
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</html>

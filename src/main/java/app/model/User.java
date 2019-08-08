@@ -60,7 +60,7 @@ public class User {
 
 	@Column(name = "password")
 	@NotEmpty(message = "{pass.not.empty}")
-	@Size(message = "{pass.size}", min = 5, max = 50)
+	@Size(message = "{pass.size}", min = 5, max = 100)
 	private String password;
 
 	@Column(name = "status")
