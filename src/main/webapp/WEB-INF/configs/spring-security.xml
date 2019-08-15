@@ -11,12 +11,16 @@
 		pre-post-annotations="enabled" />
 	<http auto-config="true" use-expressions="true">
 		<intercept-url pattern="/" access="permitAll()" />
+		<intercept-url pattern="/books" access="permitAll()" />
 		<intercept-url pattern="/login" access="permitAll()" />
 		<intercept-url pattern="/logout" access="permitAll()" />
 		<intercept-url pattern="/register" access="permitAll" />
+		
 
 		<intercept-url pattern="/admin/**"
 			access="hasAuthority('ADMIN')" />
+		<intercept-url pattern="/books/**"
+			access="hasAuthority('USER')" />
 		<intercept-url pattern="/users/**"
 			access="hasAuthority('USER')" />
 

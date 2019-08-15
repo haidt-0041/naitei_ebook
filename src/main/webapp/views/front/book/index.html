@@ -18,10 +18,10 @@
 								<h2 class="title">Lifestyle</h2>
 							</div>
 						</div>
-						<div th:if="${books.empty}">
-							<p>No books available</p>
-						</div>
 						<div th:each="book : ${books}">
+							<div th:if="${books.empty}">
+								<p>No books available</p>
+							</div>
 							<!-- post -->
 							<div class="col-md-2">
 								<div class="post post-sm">
