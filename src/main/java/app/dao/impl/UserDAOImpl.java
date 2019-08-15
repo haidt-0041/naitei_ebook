@@ -45,7 +45,6 @@ public class UserDAOImpl extends GenericDAO<Integer, User> implements UserDAO {
 		User user = (User) getSession().createQuery("from User where email = :email").setParameter("email", email)
 				.getSingleResult();
 		return user;
-
 	}
 
 	@SuppressWarnings("unchecked")
