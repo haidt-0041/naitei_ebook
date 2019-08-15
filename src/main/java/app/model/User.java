@@ -16,6 +16,7 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
+import org.hibernate.annotations.ColumnDefault;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -32,7 +33,7 @@ import lombok.Setter;
 public class User {
 	static final int MALE = 1;
 	static final int FEMALE = 0;
-	
+
 	@Id
 	@Column(name = "id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -67,6 +68,7 @@ public class User {
 	private int status;
 
 	@Column(name = "role")
+	@ColumnDefault(value = "0")
 	private int role;
 
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
